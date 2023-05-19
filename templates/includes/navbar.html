@@ -1,0 +1,44 @@
+{% load static %}
+
+<nav class="land-nav" id="land-nav">
+    <div class="container">
+        <div class="land-nav__content">
+            <div class="overlay hidden"></div>
+            <div class="land-nav__menu ">
+                <div class="hamburger" id="hamburger-1">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div class="land-nav__logo land-nav__logo--1">
+                <img src="{% static 'assets/images/logo/png/color-no-bg.png' %}" alt="logo__nav">
+            </div>
+            <div class="land-nav__logo land-nav__logo--2">
+                <img src="{% static 'assets/images/logo/png/color-no-bg.png' %}" alt="logo__nav">
+            </div>
+            <ul class="land-nav__ul">
+                <li>
+                    <a href="#">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+            <div class="land-nav__buttons">
+                <a href="#"
+                    class="land-nav__btn land-nav__transparent btn  land-btn land-btn--transparent">Login</a>
+                <a href="#" class="land-nav__btn btn land-btn">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>

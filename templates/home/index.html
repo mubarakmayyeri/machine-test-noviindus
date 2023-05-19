@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>noviindusmart</title>
-</head>
-<body>
-    <h1>Welcome to noviindusmart!</h1>
-    <!-- Add your content here -->
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'includes/navbar.html' %}
+<section class="land-header">
+    <div class="container">
+        <div class="col-lg-12 col-md-12 col-12 land-header__content" data-aos="fade-right">
+            <h1 class="land-header__title">Shop Smart, Shop Tech: Bringing Innovation to Your Fingertips!</h1>
+            <h5 class="land-header__sub-title">
+                An Electronic store for mobiles!
+            </h5>
+            <a href="#" class="btn btn--header land-btn"> <span></span>Start Shopping </a>
+        </div>
+    </div>
+</section>
+
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
