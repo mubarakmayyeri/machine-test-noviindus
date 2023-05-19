@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% include 'includes/navbar.html' %}
+
+
+<!-- main-content -->
+<section class="main-content">
+    <div class="login">
+        <div class="container">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card overflow-hidden">
+                        <div class="bg-primary bg-soft">
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="text-primary p-4 login-left">
+                                        <h3 class="text-primary text-dark">Register for free</h3>
+                                        <h5 class="msg">{{ msg }}</h5>
+                                    </div>
+                                </div>
+                                <div class="col-5 align-self-end">
+                                    <img src="{% static 'assets/img/profile-img.png' %}" alt=""
+                                        class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+
+                            <div class="p-2">
+                                <form class="needs-validation" method="post" action="#">
+
+                                    <div class="mb-4">
+                                        <label for="useremail" class="form-label">Email</label>
+                                        <input type="email" name="email" class="form-control" id="useremail"
+                                            placeholder="Enter email" required="">
+                                        <div class="invalid-feedback">
+                                            Please Enter Email
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username"
+                                            placeholder="Enter username" required="">
+                                        <div class="invalid-feedback">
+                                            Please Enter Username
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="userpassword" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            placeholder="Enter password" required="">
+                                        <div class="invalid-feedback">
+                                            Please Enter Password
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 d-grid">
+                                        <button class="btn btn-primary waves-effect waves-light rounded-btn"
+                                            type="submit" value="Register">Register</button>
+                                    </div>
+
+
+                                    <div class="mt-5 text-center">
+                                        <p class="mb-0 login-small-text">By registering you agree to the <a href="#"
+                                                class="text-primary">Terms of Use</a></p>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+
+                        <div>
+                            <p class="login-small-text">Already have an account ? <a href="{% url 'user_login' %}"
+                                    class="fw-medium text-primary">
+                                    Login</a> </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}

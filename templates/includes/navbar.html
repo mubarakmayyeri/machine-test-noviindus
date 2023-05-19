@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav class="land-nav" id="land-nav">
-    <div class="container">
+    <div class="container rounded-3 mt-3" style="background-color: #1392ed;">
         <div class="land-nav__content">
             <div class="overlay hidden"></div>
             <div class="land-nav__menu ">
@@ -19,7 +19,7 @@
             </div>
             <ul class="land-nav__ul">
                 <li>
-                    <a href="#">
+                    <a href="{% url 'index' %}">
                         Home
                     </a>
                 </li>
@@ -35,9 +35,9 @@
                 </li>
             </ul>
             <div class="land-nav__buttons">
-                <a href="#"
+                <a href="{% url 'user_login' %}"
                     class="land-nav__btn land-nav__transparent btn  land-btn land-btn--transparent">Login</a>
-                <a href="#" class="land-nav__btn btn land-btn">Register</a>
+                <a href="{% url 'user_register' %}" class="land-nav__btn btn land-btn">Register</a>
             </div>
         </div>
     </div>
