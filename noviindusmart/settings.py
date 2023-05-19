@@ -14,6 +14,7 @@ from pathlib import Path
 from decouple import config
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.messages import constants as messages
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +28,7 @@ BASE_DIR =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG',default=True , cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -77,6 +78,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'noviindusmart.wsgi.application'
 
+# Custom user model
+AUTH_USER_MODEL = 'accounts.Account'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -107,9 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Custom user model
-AUTH_USER_MODEL = 'accounts.CustomUser'
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -138,6 +139,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configure Media Files
 MEDIA_URL = '/media/'
-MEDIA_URL = '/media/'
+MEDIA_ROOT: os.path.join(BASE_DIR, 'media')
+
+
+# Configuration for message alerts
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+}
+
 
 

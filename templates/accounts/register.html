@@ -23,53 +23,76 @@
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
-                                    <img src="{% static 'assets/img/profile-img.png' %}" alt=""
-                                        class="img-fluid">
+                                    <img src="{% static 'assets/img/profile-img.png' %}" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
                         <div class="card-body ">
 
                             <div class="p-2">
-                                <form class="needs-validation" method="post" action="#">
+                                <form action="{% url 'user_register' %}" method="post">
 
-                                    <div class="mb-4">
-                                        <label for="useremail" class="form-label">Email</label>
-                                        <input type="email" name="email" class="form-control" id="useremail"
-                                            placeholder="Enter email" required="">
-                                        <div class="invalid-feedback">
-                                            Please Enter Email
+                                    {% csrf_token %}
+
+                                    <div class="form-row">
+                                        <div class="col form-group">
+                                            <label class="form-label mt-3">First name</label>
+                                            {{form.first_name}}
+                                            <h5 id="usercheck1" style="color: red;">
+                                                **First name is missing
+                                            </h5>
+                                        </div> <!-- form-group end.// -->
+                                        <div class="col form-group">
+                                            <label class="form-label mt-3">Last name</label>
+                                            {{form.last_name}}
+                                            <h5 id="usercheck2" style="color: red;">
+                                                **Last name is missing
+                                            </h5>
+                                        </div> <!-- form-group end.// -->
+                                    </div> <!-- form-row end.// -->
+                                    <div class="form-group">
+                                        <label class="form-label mt-3">Email</label>
+                                        {{form.email}}
+                                        <small id="emailvalid" class="form-text
+                                            text-muted invalid-feedback">
+                                            Your email must be a valid email
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label mt-3">Phone Number</label>
+                                        <div class="d-flex">
+                                            <button class="btn btn-dark me-2" disabled style="width: 5rem;">+91</button>
+                                            {{form.phone_number}}
+                                            <small id="phonevalid" class="form-text
+                                            text-muted invalid-feedback">
+                                                Please enter a valid mobile number
+                                            </small>
                                         </div>
                                     </div>
-
-                                    <div class="mb-4">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="username" name="username"
-                                            placeholder="Enter username" required="">
-                                        <div class="invalid-feedback">
-                                            Please Enter Username
-                                        </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label class="form-label mt-3">Create password</label>
+                                            {{form.password}}
+                                            <h5 id="passcheck" style="color: red;">
+                                                **Please Fill the password
+                                            </h5>
+                                        </div> <!-- form-group end.// -->
+                                        <div class="form-group col-md-6">
+                                            <label class="form-label mt-3">Confirm password</label>
+                                            {{form.confirm_password}}
+                                            <h5 id="conpasscheck" style="color: red;">
+                                                **Password didn't match
+                                            </h5>
+                                        </div> <!-- form-group end.// -->
                                     </div>
+                                    <div class="form-group d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-success text-white btn-block mt-3"
+                                            id='submitbtn'> Register </button>
+                                    </div> <!-- form-group// -->
+                                    {{form.email.errors}}
+                                    {{form.phone_number.errors}}
+                                    {{form.non_field_errors}}
 
-                                    <div class="mb-4">
-                                        <label for="userpassword" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Enter password" required="">
-                                        <div class="invalid-feedback">
-                                            Please Enter Password
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-5 d-grid">
-                                        <button class="btn btn-primary waves-effect waves-light rounded-btn"
-                                            type="submit" value="Register">Register</button>
-                                    </div>
-
-
-                                    <div class="mt-5 text-center">
-                                        <p class="mb-0 login-small-text">By registering you agree to the <a href="#"
-                                                class="text-primary">Terms of Use</a></p>
-                                    </div>
                                 </form>
                             </div>
 
@@ -92,3 +115,154 @@
 
 
 {% endblock content %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    // Document is ready
+    $(document).ready(function () {
+        // Validate Username
+        $("#usercheck1").hide();
+        let firstnameError = true;
+        $("#id_first_name").keyup(function () {
+            validateFirstName();
+        });
+
+        function validateFirstName() {
+            let usernameValue = $("#id_first_name").val();
+            if (usernameValue.length == "") {
+                $("#usercheck1").show();
+                firstnameError = false;
+                return false;
+            } else if (usernameValue.length < 3 || usernameValue.length > 10) {
+                $("#usercheck1").show();
+                $("#usercheck1").html("**length of first name must be between 3 and 10");
+                firstnameError = false;
+                return false;
+            } else {
+                $("#usercheck1").hide();
+            }
+        }
+
+        $("#usercheck2").hide();
+        let usernameError = true;
+        $("#id_last_name").keyup(function () {
+            validateLastName();
+        });
+
+        function validateLastName() {
+            let usernameValue = $("#id_last_name").val();
+            if (usernameValue.length == "") {
+                $("#usercheck2").show();
+                usernameError = false;
+                return false;
+            } else if (usernameValue.length < 3 || usernameValue.length > 10) {
+                $("#usercheck2").show();
+                $("#usercheck2").html("**length of last name must be between 3 and 10");
+                usernameError = false;
+                return false;
+            } else {
+                $("#usercheck2").hide();
+            }
+        }
+
+        // Validate Email
+        const email = document.getElementById("id_email");
+        email.addEventListener("blur", () => {
+            let regex = /^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
+            let s = email.value;
+            if (regex.test(s)) {
+                email.classList.remove("is-invalid");
+                emailError = true;
+            } else {
+                email.classList.add("is-invalid");
+                emailError = false;
+            }
+        });
+
+        // Validate Phone Number
+        const phone = document.getElementById("id_phone_number");
+        phone.addEventListener("blur", () => {
+            let regex = /^[0-9]{10}$/;
+            let s = phone.value;
+            if (regex.test(s)) {
+                phone.classList.remove("is-invalid");
+                phoneError = true;
+            } else {
+                phone.classList.add("is-invalid");
+                phoneError = false;
+            }
+        });
+
+        // Validate Password
+        $("#passcheck").hide();
+        let passwordError = true;
+        $("#id_password").keyup(function () {
+            validatePassword();
+        });
+        function validatePassword() {
+            let passwordValue = $("#id_password").val();
+            if (passwordValue.length == "") {
+                $("#passcheck").show();
+                passwordError = false;
+                return false;
+            }
+            if (passwordValue.length < 6 || passwordValue.length > 16) {
+                $("#passcheck").show();
+                $("#passcheck").html(
+                    "**length of your password must be between 6 and 16"
+                );
+                $("#passcheck").css("color", "red");
+                passwordError = false;
+                return false;
+            } else {
+                $("#passcheck").hide();
+            }
+        }
+
+        // Validate Confirm Password
+        $("#conpasscheck").hide();
+        let confirmPasswordError = true;
+        $("#id_confirm_password").keyup(function () {
+            validateConfirmPassword();
+        });
+        function validateConfirmPassword() {
+            let confirmPasswordValue = $("#id_confirm_password").val();
+            let passwordValue = $("#id_password").val();
+            if (passwordValue != confirmPasswordValue) {
+                $("#conpasscheck").show();
+                $("#conpasscheck").html("**Password didn't Match");
+                $("#conpasscheck").css("color", "red");
+                confirmPasswordError = false;
+                return false;
+            } else {
+                $("#conpasscheck").hide();
+            }
+        }
+
+        // Submit button
+        $("#submitbtn").click(function () {
+            validateFirstName();
+            validateLastName();
+            validatePassword();
+            validateConfirmPassword();
+            validateEmail();
+            if (
+                firstnameError = true &&
+                usernameError == true &&
+                passwordError == true &&
+                confirmPasswordError == true &&
+                emailError == true &&
+                phoneError == true
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    });
+
+</script>
+{% endblock scripts %}

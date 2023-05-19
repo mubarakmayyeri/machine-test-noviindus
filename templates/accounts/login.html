@@ -12,19 +12,16 @@
         <div class="container">
             <div class="row justify-content-center mt-5">
                 <div class="col-md-8 col-lg-6 col-xl-5">
+
+                    {% include 'includes/alerts.html' %}
+
                     <div class="card overflow-hidden">
                         <div class="bg-primary bg-soft">
                             <div class="row">
                                 <div class="col-7">
                                     <div class="text-primary p-4 login-left">
-                                        
-                                        {% if msg %}
-                                        <h5 class="msg text-primary">{{msg}}</h5>
-                                        {% else %}
                                         <h5 class="text-primary">Welcome Back !</h5>
-                                        {% endif %}
                                         <p>Sign in to continue </p>
-
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
@@ -35,38 +32,25 @@
                         <div class="card-body ">
 
                             <div class="p-2">
-                                <form class="form-horizontal" action="{% url 'user_login' %}" method="post">
-
-                                    <div class="mb-4">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" name="username" class="form-control" id="username"
-                                            placeholder="Enter username" required>
+                                <form action="{% url 'user_login' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" id="email" class="form-control"
+                                            placeholder="Enter Your Email Address" name="email" required>
+                                        <div class="text-danger mt-1"><span id="emailerror"></span></div>
                                     </div>
-
-                                    <div class="mb-4">
+                                    <div class="form-group">
                                         <label class="form-label">Password</label>
-                                        <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" class="form-control" placeholder="Enter password"
-                                                name="password" aria-label="Password" aria-describedby="password-addon"
-                                                id="password-input" required>
-                                            <button class="btn btn-light password-toggle-button" type="button" id="password-addon">
-                                                <i class="bi bi-eye"></i></button>
-                                        </div>
+                                        <input type="password" id="password" class="form-control"
+                                            placeholder="Enter Your Password" name="password" required>
+                                        <div class="text-danger mt-1"><span id="passerror"></span></div>
                                     </div>
 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="remember-check">
-                                        <label class="form-check-label" for="remember-check">
-                                            Remember me
-                                        </label>
+                                    <div class="form-group">
+                                        <button type="submit" id="login" class="btn btn-success btn-block mt-3"> Login
+                                        </button>
                                     </div>
-
-                                    <div class="mt-3 d-grid">
-                                        <button class="btn btn-primary waves-effect waves-light" type="submit"
-                                            vlaue="login">Log
-                                            In</button>
-                                    </div>
-
                                 </form>
                             </div>
 
@@ -91,21 +75,3 @@
 
 
 {% endblock content %}
-
-{% block scripts %}
-<script>
-    // Toggle password visibility
-    const passwordInput = document.getElementById('password-input');
-    const passwordToggleButton = document.querySelector('.password-toggle-button');
-
-    passwordToggleButton.addEventListener('click', function () {
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordToggleButton.innerHTML = '<i class="bi bi-eye-slash"></i>';
-        } else {
-            passwordInput.type = 'password';
-            passwordToggleButton.innerHTML = '<i class="bi bi-eye"></i>';
-        }
-    });
-</script>
-{% endblock scripts %}
